@@ -1,12 +1,12 @@
 
-import { useRouter } from 'next/router';
+'use client';
+
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 
-const TransactionPage: React.FC = () => {
+export default function TransactionPage({ params }: { params: { hash: string } }) {
   const [transaction, setTransaction] = useState<any>(null);
-  const router = useRouter();
-  const { hash } = router.query; // Access the dynamic part of the URL
+  const { hash } = params; 
   const web3 = new Web3('http://localhost:8545');
 
   useEffect(() => {
@@ -39,5 +39,3 @@ const TransactionPage: React.FC = () => {
       </div>
   );
 };
-
-export default TransactionPage;

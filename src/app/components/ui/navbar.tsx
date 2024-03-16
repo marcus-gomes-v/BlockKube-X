@@ -1,47 +1,23 @@
 'use client'
 
-import { Fragment, useState } from 'react'
-import { Disclosure, Menu, Transition } from '@headlessui/react'
+import { useState } from 'react'
+import { useRouter } from 'next/navigation';
+import { Disclosure } from '@headlessui/react'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
-import Web3 from 'web3';
-
-function classNames(...classes: any) {
-  return classes.filter(Boolean).join(' ')
-}
+import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 
 export default function Navbar() {
-
   const [input, setInput] = useState('');
-  const [result, setResult] = useState<any>(null);
-
-  const web3 = new Web3('http://localhost:8545');
+  const router = useRouter();
 
   const handleSearch = async () => {
     if (/^0x[a-fA-F0-9]{64}$/.test(input)) { // Transaction Hash
-      fetchTransactionData(input);
+      router.push(`/tx/${input}`); // Navigate to transaction detail page
     } else if (/^0x[a-fA-F0-9]{40}$/.test(input)) { // Wallet Address
-      fetchWalletData(input);
+      router.push(`/address/${input}`); // Navigate to wallet detail page
     } else {
       alert("Invalid input");
     }
-  };
-
-  const fetchBlockData = async (blockNumber: number) => {
-    const block = await web3.eth.getBlock(blockNumber);
-    setResult({ type: 'block', content: block });
-  };
-
-  const fetchTransactionData = async (txHash: string) => {
-    const tx = await web3.eth.getTransaction(txHash);
-    const receipt = await web3.eth.getTransactionReceipt(txHash);
-    setResult({ type: 'transaction', content: { ...tx, gasUsed: receipt.gasUsed } });
-  };
-
-  const fetchWalletData = async (address: string) => {
-    const balance = await web3.eth.getBalance(address);
-    // Further implementation needed for fetching transactions by address
-    setResult({ type: 'wallet', content: { balance } });
   };
 
   const links = [
@@ -87,12 +63,12 @@ export default function Navbar() {
                     <input
                       id="search"
                       name="search"
-                      className="block w-full rounded-md border-0 
-                      bg-gray-100 text-gray-400 placeholder:text-gray-400 focus:bg-white focus:text-gray-900
-                      dark:bg-gray-700 dark:text-gray-300 placeholder:dark:text-gray-400 focus:dark:bg-white focus:dark:text-gray-900 
-                      py-1.5 pl-10 pr-3  focus:ring-0 sm:text-sm sm:leading-6"
+                      className="block w-full rounded-md border-0 bg-gray-100 text-gray-400 placeholder:text-gray-400 focus:bg-white focus:text-gray-900 dark:bg-gray-700 dark:text-gray-300 placeholder:dark:text-gray-400 focus:dark:bg-white focus:dark:text-gray-900 py-1.5 pl-10 pr-3 focus:ring-0 sm:text-sm sm:leading-6"
                       placeholder="Search"
                       type="search"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      onKeyDown={(e) => e.key === 'Enter' && handleSearch()} // Trigger search on Enter key press
                     />
                   </div>
                 </div>
