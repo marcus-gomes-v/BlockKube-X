@@ -4,6 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 import { Kube } from './kube';
+import { PinContainer } from './ui/3d-pin';
 
 interface Block {
   parentHash: string;
@@ -32,6 +33,8 @@ const Blocks: React.FC = () => {
       BigInt(latestBlockNumber) - BigInt(3),
       BigInt(latestBlockNumber) - BigInt(4),
       BigInt(latestBlockNumber) - BigInt(5),
+      BigInt(latestBlockNumber) - BigInt(6),
+      BigInt(latestBlockNumber) - BigInt(7),
     ];
     const blocksData: Block[] = await Promise.all(
       blocksToFetch.map(async (blockNumber) => {
@@ -75,7 +78,7 @@ const Blocks: React.FC = () => {
             </svg>
           </button>
         </h1>
-        <div className='grid grid-cols-3 gap-3'>
+        <div className='grid grid-cols-4'>
           {blocks.map((block, index) => {
             // Determine if the block is the last in the array
             const isFirstBlock = index === 0;
@@ -85,11 +88,19 @@ const Blocks: React.FC = () => {
             const animationClass = isFirstBlock ? fadeInClass : isLastBlock ? fadeOutClass : '';
 
             return (
-              <div key={block.number.toString()} className={animationClass}>
-                <Kube
-                  title={`${block.number}`}
-                  description={`Timestamp: ${block.timestamp}, Transactions: ${block.transactions.length}`}
-                />
+              <div key={block.number.toString()} className={`${animationClass}`}>
+                <PinContainer
+                  title={`View Block ${block.number}`}
+                  href={`/block/${block.number}`}
+                >
+                  <div className="tracking-tight text-slate-100/50 w-[18rem] h-[12rem]">
+                    <Kube
+                      title={`${block.number}`}
+                      description={`Timestamp: ${block.timestamp}, Transactions: ${block.transactions.length}`}
+                      className='hover:cursor-pointer hover:shadow-md hover:shadow-sky-500 hover:dark:shadow-sky-300 transition-shadow duration-300 ease-in-out'
+                    />
+                  </div>
+                </PinContainer>
               </div>
             );
           })}
