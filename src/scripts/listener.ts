@@ -98,23 +98,31 @@ async function processBlock(blockNumber: number) {
 }
 
 async function startPolling() {
-  let latestBlockNumberAtStart = await web3.eth.getBlockNumber();
+  
+  console.log('INDEX_PAST_BLOCKS:', process.env.INDEX_PAST_BLOCKS);
 
-  // First, process all blocks up to the current block
-  for (let blockNumber = lastProcessedBlock + 1; blockNumber <= latestBlockNumberAtStart; blockNumber++) {
-    await processBlock(blockNumber);
-  }
-  lastProcessedBlock = Number(latestBlockNumberAtStart);
+  if (process.env.INDEX_PAST_BLOCKS === 'true') {
+    let latestBlockNumberAtStart = await web3.eth.getBlockNumber();
 
-  // Now, catch any blocks that may have arrived during the initial processing
-  const latestBlockNumberBeforePolling = await web3.eth.getBlockNumber();
-  for (let blockNumber = lastProcessedBlock + 1; blockNumber <= latestBlockNumberBeforePolling; blockNumber++) {
-    await processBlock(blockNumber);
+    // First, process all blocks up to the current block
+    for (let blockNumber = lastProcessedBlock + 1; blockNumber <= latestBlockNumberAtStart; blockNumber++) {
+      await processBlock(blockNumber);
+    }
+    lastProcessedBlock = Number(latestBlockNumberAtStart);
+
+    // Now, catch any blocks that may have arrived during the initial processing
+    const latestBlockNumberBeforePolling = await web3.eth.getBlockNumber();
+    for (let blockNumber = lastProcessedBlock + 1; blockNumber <= latestBlockNumberBeforePolling; blockNumber++) {
+      await processBlock(blockNumber);
+    }
+    lastProcessedBlock = Number(latestBlockNumberBeforePolling);
+  } else {
+    lastProcessedBlock = Number(await web3.eth.getBlockNumber());
   }
-  lastProcessedBlock = Number(latestBlockNumberBeforePolling);
 
   // Finally, start polling for new blocks
   setInterval(async () => {
+    // Get the current block number
     const currentBlockNumber = await web3.eth.getBlockNumber();
     if (currentBlockNumber > lastProcessedBlock) {
       for (let blockNumber = lastProcessedBlock + 1; blockNumber <= currentBlockNumber; blockNumber++) {

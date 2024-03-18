@@ -5,10 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
+    "start:next": "next start",
     "lint": "next lint",
     "listen": "ts-node -P tsconfig.scripts.json src/scripts/listener.ts",
-    "start:dev": "concurrently \"npm run dev\" \"npm run listen\""
+    "start:dev": "concurrently \"npm run dev\" \"npm run listen\"",
+    "start": "concurrently \"npm run start:next\" \"npm run listen\""
   },
   "dependencies": {
     "@headlessui/react": "^1.7.18",
