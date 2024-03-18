@@ -4,12 +4,12 @@
 import WalletDetail from '@/app/components/details/wallet/wallet-detail';
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
-const ETH_NODE_URL = process.env.ETH_NODE_URL!;
+const NEXT_PUBLIC_ETH_NODE_URL = process.env.NEXT_PUBLIC_ETH_NODE_URL!;
 
 export default function TransactionPage({ params }: { params: { address: string } }) {
   const [addressDetail, setAddressDetail] = useState<any>(null);
   const { address } = params; 
-  const web3 = new Web3(ETH_NODE_URL);
+  const web3 = new Web3(NEXT_PUBLIC_ETH_NODE_URL);
 
   useEffect(() => {
     if (!address) return; // Exit if the hash is not yet available
