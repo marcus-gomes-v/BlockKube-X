@@ -23,8 +23,8 @@ Before you begin, ensure you have installed the following on your system:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-github/blockkube-explorer.git
-   cd blockkube-explorer
+   git clone https://github.com/marcus-gomes-v/BlockKube-X.git
+   cd BlockKube-X
    ```
 2. Install dependencies:
 
@@ -32,6 +32,7 @@ Before you begin, ensure you have installed the following on your system:
    npm install
    ```
 3. Set up environment variables:
+
    - Copy the `.env.example` file to `.env`.
    - Fill in the `NEXT_PUBLIC_ETH_NODE_URL` with your Ethereum node URL.
    - Set your `MONGODB_URI` to point to your MongoDB instance.
