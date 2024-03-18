@@ -4,7 +4,7 @@
 import WalletDetail from '@/app/components/details/wallet/wallet-detail';
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
-const ETH_NODE_URL = process.env.ETH_NODE_URL!;
+const ETH_NODE_URL = process.env.NEXT_PUBLIC_ETH_NODE_URL!;
 
 export default function TransactionPage({ params }: { params: { address: string } }) {
   const [addressDetail, setAddressDetail] = useState<any>(null);
