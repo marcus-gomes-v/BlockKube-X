@@ -4,11 +4,12 @@
 import BlockDetail from '@/app/components/details/block/block-detail';
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
+const ETH_NODE_URL = process.env.ETH_NODE_URL!;
 
 export default function TransactionPage({ params }: { params: { data: string } }) {
   const [block, setBlock] = useState<any>(null);
   const { data } = params; 
-  const web3 = new Web3('http://localhost:8545');
+  const web3 = new Web3(ETH_NODE_URL);
 
   useEffect(() => {
     if (!data) return; // Exit if the hash is not yet available

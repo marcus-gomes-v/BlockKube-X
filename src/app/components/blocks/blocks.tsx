@@ -19,10 +19,12 @@ interface Block {
   transactions: string[]; // Array to store transaction hashes
 }
 
+const ETH_NODE_URL = process.env.ETH_NODE_URL!;
+
 const Blocks: React.FC = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
 
-  const web3 = new Web3('http://localhost:8545');
+  const web3 = new Web3(ETH_NODE_URL);
 
   const fetchBlocks = async () => {
     const latestBlockNumber = await web3.eth.getBlockNumber();

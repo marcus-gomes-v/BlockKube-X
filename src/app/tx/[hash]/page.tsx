@@ -5,11 +5,12 @@ import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 import { useRouter } from 'next/navigation';
 import TransactionDetail from '@/app/components/details/tx/transaction-detail';
+const ETH_NODE_URL = process.env.ETH_NODE_URL!;
 
 export default function TransactionPage({ params }: { params: { hash: string } }) {
   const [transaction, setTransaction] = useState<any>(null);
   const { hash } = params; 
-  const web3 = new Web3('http://localhost:8545');
+  const web3 = new Web3(ETH_NODE_URL);
   const router = useRouter();
 
   useEffect(() => {

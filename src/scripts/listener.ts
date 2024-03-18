@@ -6,17 +6,17 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const MONGODB_URI = process.env.MONGODB_URI!;
-const rpcProviderUrl = process.env.ETH_NODE_URL;
+const ETH_NODE_URL = process.env.ETH_NODE_URL;
 
 if (!MONGODB_URI) {
   throw new Error('MongoDB URI is not defined in MONGODB_URI.');
 }
-if (!rpcProviderUrl) {
+if (!ETH_NODE_URL) {
   throw new Error('Ethereum node RPC URL not defined in ETH_NODE_URL.');
 }
 
-console.log('Connecting to Ethereum node at:', rpcProviderUrl);
-const web3 = new Web3(rpcProviderUrl);
+console.log('Connecting to Ethereum node at:', ETH_NODE_URL);
+const web3 = new Web3(ETH_NODE_URL);
 
 mongoose.connect(MONGODB_URI).then(() => console.log('MongoDB connected')).catch(console.error);
 
