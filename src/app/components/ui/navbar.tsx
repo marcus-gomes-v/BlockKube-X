@@ -11,7 +11,9 @@ export default function Navbar() {
   const router = useRouter();
 
   const handleSearch = async () => {
-    if (/^0x[a-fA-F0-9]{64}$/.test(input)) { // Transaction Hash
+     if (/^\d+$/.test(input)) { // Block Number
+      router.push(`/block/${input}`); // Navigate to block detail page by number
+    } else if (/^0x[a-fA-F0-9]{64}$/.test(input)) { // Transaction Hash
       router.push(`/tx/${input}`); // Navigate to transaction detail page
     } else if (/^0x[a-fA-F0-9]{40}$/.test(input)) { // Wallet Address
       router.push(`/address/${input}`); // Navigate to wallet detail page
@@ -21,7 +23,7 @@ export default function Navbar() {
   };
 
   const links = [
-    { name: 'Home', href: '/' },
+    { name: 'Dashboard', href: '/' },
   ]
 
   return (
@@ -31,9 +33,9 @@ export default function Navbar() {
           <div className="mx-auto max-w-7xl px-2 sm:px-4 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
               <div className="flex items-center px-2 lg:px-0">
-                <div className="flex-shrink-0 text-gray-700 dark:text-white">
+                <div className="flex-shrink-0 text-gray-700 dark:text-white font-bold font-mono">
                   <a href="/">
-                    BlockKube
+                    Block Kube X
                   </a>
                 </div>
                 <div className="hidden lg:ml-6 lg:block">

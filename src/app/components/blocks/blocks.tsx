@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 import { Kube } from './kube';
-import { PinContainer } from './ui/3d-pin';
+import { PinContainer } from '../ui/3d-pin';
 
 interface Block {
   parentHash: string;

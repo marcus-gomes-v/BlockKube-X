@@ -1,6 +1,7 @@
 
 'use client';
 
+import WalletDetail from '@/app/components/details/wallet/wallet-detail';
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 
@@ -15,7 +16,6 @@ export default function TransactionPage({ params }: { params: { address: string 
       if (typeof address === 'string') { // Ensure hash is a string
         const walletBalanceWei = await web3.eth.getBalance(address);
         const walletBalanceEther = await web3.utils.fromWei(walletBalanceWei, 'ether');
-        console.log(walletBalanceEther)
         const response = await fetch(`/api/transactions/${address}`);
         if (!response.ok) {
           console.error('Failed to fetch transactions data');
@@ -24,7 +24,7 @@ export default function TransactionPage({ params }: { params: { address: string 
         const transactions = await response.json();
         setAddressDetail({
           address: address,
-          walletBalance: Number(walletBalanceEther),
+          balance: Number(walletBalanceEther),
           transactions
         });
       }
@@ -37,20 +37,6 @@ export default function TransactionPage({ params }: { params: { address: string 
   }
 
   return (
-      <div className='border border-red-50 w-full'>
-        <h3>Address Information</h3>
-        {/* Display transaction details similar to what you've done in the Search component */}
-        <div>
-          <p><strong>Address:</strong> {addressDetail.address}</p>
-          <p><strong>Balance:</strong> {Number(addressDetail.walletBalance).toFixed(4)}</p>
-          {addressDetail.transactions.map((transaction: any) => (
-            <div key={transaction._id}>
-              <p><strong>From:</strong> {transaction.from}</p>
-              <p><strong>To:</strong> {transaction.to}</p>
-              <p><strong>Value:</strong> {transaction.value}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+    <WalletDetail wallet={addressDetail} />
   );
 };

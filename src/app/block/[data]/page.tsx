@@ -1,6 +1,7 @@
 
 'use client';
 
+import BlockDetail from '@/app/components/details/block/block-detail';
 import React, { useEffect, useState } from 'react';
 import Web3 from 'web3';
 
@@ -22,6 +23,7 @@ export default function TransactionPage({ params }: { params: { data: string } }
       if (!blockData) {
         blockData = await web3.eth.getBlock(data, true);
       }
+      console.log('Block Data:', blockData);
       setBlock(blockData);
     };
     fetchBlockData();
@@ -32,26 +34,6 @@ export default function TransactionPage({ params }: { params: { data: string } }
   }
 
   return (
-      <div>
-        <h3>Block Information</h3>
-        {/* Display transaction details similar to what you've done in the Search component */}
-        <div>Block Number: {block.number}</div>
-        <div>Block Hash: {block.hash}</div>
-        <div>Parent Hash: {block.parentHash}</div>
-        <div>Nonce: {block.nonce}</div>
-        <div>Sha3 Uncles: {block.sha3Uncles}</div>
-        <div>Logs Bloom: {block.logsBloom}</div>
-        <div>Transactions Root: {block.transactionsRoot}</div>
-        <div>State Root: {block.stateRoot}</div>
-        <div>Miner: {block.miner}</div>
-        <div>Difficulty: {block.difficulty}</div>
-        <div>Total Difficulty: {block.totalDifficulty}</div>
-        <div>Extra Data: {block.extraData}</div>
-        <div>Size: {block.size}</div>
-        <div>Gas Limit: {block.gasLimit}</div>
-        <div>Gas Used: {block.gasUsed}</div>
-        <div>Timestamp: {block.timestamp}</div>
-        <div>Transactions: {block.transactions ? block.transactions.join(', ') : ''}</div>
-      </div>
+    <BlockDetail block={block} />
   );
 };

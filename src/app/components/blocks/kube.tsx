@@ -1,5 +1,5 @@
 import React from "react";
-import { Meteors } from "./ui/meteors";
+import { Meteors } from "../ui/meteors";
 import { CubeIcon } from "@heroicons/react/20/solid";
 
 export function Kube({title, description, className}: {title: string, description: string, className?: string}) {

@@ -22,7 +22,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   const blocks = await Block.findOne(searchCriteria)
     .collation({ locale: 'en', strength: 2 });
 
-  console.log(blocks)
-
   res.json(blocks);
 }

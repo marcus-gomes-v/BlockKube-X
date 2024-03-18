@@ -12,6 +12,7 @@ export interface ITransaction extends Document {
   blockHash: string;
   blockNumber: string;
   transactionIndex: string;
+  gasUsed?: string;
 }
 
 const TransactionSchema: Schema = new Schema({
