@@ -1,6 +1,6 @@
-import { IBlock } from '@/models/Block'
 import { ITransaction } from '@/models/Transaction';
 import { ArrowLeftIcon } from '@heroicons/react/20/solid'
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Web3 from 'web3';
 
@@ -27,9 +27,9 @@ export default function TransactionDetail({ tx }: { tx: ITransaction}) {
             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-900 dark:text-gray-300">Block</dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">
-                <a href={`/block/${tx.blockNumber}`} className='text-blue-500 dark:text-blue-400 cursor-pointer'>
+                <Link href={`/block/${tx.blockNumber}`} className='text-blue-500 dark:text-blue-400 cursor-pointer'>
                   {tx.blockNumber.toString()}
-                </a>
+                </Link>
               </dd>
             </div>
             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -37,9 +37,9 @@ export default function TransactionDetail({ tx }: { tx: ITransaction}) {
                 From
               </dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">
-                <a href={`/address/${tx.from}`} className='text-blue-500 dark:text-blue-400 cursor-pointer'>
+                <Link href={`/address/${tx.from}`} className='text-blue-500 dark:text-blue-400 cursor-pointer'>
                   {tx.from}
-                </a>
+                </Link>
               </dd>
             </div>
             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -47,9 +47,9 @@ export default function TransactionDetail({ tx }: { tx: ITransaction}) {
                 To
               </dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">
-                <a href={`/address/${tx.to}`} className='text-blue-500 dark:text-blue-400 cursor-pointer'>
+                <Link href={`/address/${tx.to}`} className='text-blue-500 dark:text-blue-400 cursor-pointer'>
                   {tx.to}
-                </a>
+                </Link>
               </dd>
             </div>
             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -57,7 +57,7 @@ export default function TransactionDetail({ tx }: { tx: ITransaction}) {
                 Value
               </dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">
-                {Web3.utils.fromWei(tx.value, 'ether')} ETH
+                {Number(Web3.utils.fromWei(tx.value, 'ether')).toLocaleString()} KUBE
               </dd>
             </div>
             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -65,7 +65,7 @@ export default function TransactionDetail({ tx }: { tx: ITransaction}) {
                 Transaction fee
               </dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">
-                {Web3.utils.fromWei(tx.gas, 'ether')} ETH
+                {Number(Web3.utils.fromWei(tx.gas, 'ether')).toFixed(10).toLocaleString()} KUBE
               </dd>
             </div>
             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -73,7 +73,7 @@ export default function TransactionDetail({ tx }: { tx: ITransaction}) {
                 Gas price
               </dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">
-                {Web3.utils.fromWei(tx.gasPrice, 'ether')} ETH
+                {Number(Web3.utils.fromWei(tx.gasPrice, 'ether')).toFixed(10).toLocaleString()} KUBE
               </dd>
             </div>
             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
@@ -81,7 +81,7 @@ export default function TransactionDetail({ tx }: { tx: ITransaction}) {
                 Gas usage
               </dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">
-                {Number(`${tx.gasUsed || 0}`).toLocaleString()}
+                {Number(`${tx.gasUsed || 0}`).toFixed(10).toLocaleString()}
               </dd>
             </div>
           </dl>

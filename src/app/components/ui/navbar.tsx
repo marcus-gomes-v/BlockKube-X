@@ -1,10 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { Disclosure } from '@headlessui/react'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
+import Link from 'next/link';
 
 export default function Navbar() {
   const [input, setInput] = useState('');
@@ -23,8 +24,11 @@ export default function Navbar() {
   };
 
   const links = [
-    { name: 'Dashboard', href: '/' },
+    { name: 'Dashboard', href: '/', pathName: '/' },
+    { name: 'About', href: '/about', pathName: '/about' },
   ]
+
+  const currentPage = usePathname();
 
   return (
     <Disclosure as="nav" className="bg-gray-200 dark:bg-gray-900">
@@ -41,13 +45,13 @@ export default function Navbar() {
                 <div className="hidden lg:ml-6 lg:block">
                   <div className="flex space-x-4">
                     {links.map((item) => (
-                      <a
-                        key={item.name}
-                        href={item.href}
-                        className="rounded-md px-3 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-sky-600 dark:text-gray-300 hover:dark:bg-gray-700 hover:dark:text-white "
-                      >
+                      <Link key={item.name} href={item.href} className={`px-3 py-2 text-sm font-medium 
+                        ${currentPage === item.pathName ? 
+                          'text-sky-600 border-b border-sky-600 hover:dark:text-gray-100 hover:text-gray-900 hover:border-b hover:border-gray-900 hover:dark:border-gray-100' : 
+                          'text-gray-700  dark:text-gray-100 hover:dark:text-gray-100 hover:text-gray-900 hover:border-b hover:border-gray-900 hover:dark:border-gray-100'}
+                        `}>
                         {item.name}
-                      </a>
+                      </Link>
                     ))
                     }
                   </div>
@@ -66,7 +70,7 @@ export default function Navbar() {
                       id="search"
                       name="search"
                       className="block w-full rounded-md border-0 bg-gray-100 text-gray-400 placeholder:text-gray-400 focus:bg-white focus:text-gray-900 dark:bg-gray-700 dark:text-gray-300 placeholder:dark:text-gray-400 focus:dark:bg-white focus:dark:text-gray-900 py-1.5 pl-10 pr-3 focus:ring-0 sm:text-sm sm:leading-6"
-                      placeholder="Search"
+                      placeholder="Search by address / txn hash / block ..."
                       type="search"
                       value={input}
                       onChange={(e) => setInput(e.target.value)}

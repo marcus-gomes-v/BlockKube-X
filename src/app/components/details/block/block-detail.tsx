@@ -1,5 +1,6 @@
 import { IBlock } from '@/models/Block'
 import { ArrowLeftIcon } from '@heroicons/react/20/solid'
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Web3 from 'web3';
 
@@ -18,7 +19,7 @@ export default function BlockDetail({ block }: { block: IBlock}) {
       <div className="overflow-hidden bg-white dark:bg-gray-800 shadow sm:rounded-lg p-3">
         <div className="px-4 py-6 sm:px-6">
           <p className="font-bold text-gray-500 dark:text-gray-300">
-            Parent: <a href={`/block/${block.parentHash}`} className="text-blue-500 dark:text-blue-400">{block.parentHash}</a> 
+            Parent: <Link href={`/block/${block.parentHash}`} className="text-blue-500 dark:text-blue-400">{block.parentHash}</Link> 
           </p>
         </div>
         <div className="border-t border-gray-200 dark:border-gray-900">

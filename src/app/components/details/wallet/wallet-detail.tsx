@@ -24,7 +24,7 @@ export default function WalletDetail({ wallet }: { wallet: any}) {
             <div className="px-4 py-6 sm:grid sm:grid-cols-3 sm:gap-4 sm:px-6">
               <dt className="text-sm font-medium text-gray-900 dark:text-gray-300">Balance</dt>
               <dd className="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-200 sm:col-span-2 sm:mt-0">
-                {wallet.balance} ETH
+                {Number(wallet.balance).toLocaleString()} KUBE
               </dd>
             </div>
           </dl>
