@@ -1,11 +1,13 @@
-# blockkube-explorer
+# Block Kube X
 
 `blockkube-explorer` is a lightweight, feature-rich blockchain explorer designed to provide real-time insights into the Ethereum blockchain. Built with Next.js and MongoDB, it leverages Web3.js for blockchain interactions, offering users a responsive and intuitive interface to query blocks, transactions, and wallet balances.
+
+**Demo**: [Block Kube X on Vercel](https://blockkube-x.vercel.app/)
 
 ## Features
 
 - **Real-time Blockchain Data**: Explore the latest blocks and transactions on the Ethereum blockchain.
-- **Wallet Information**: View detailed wallet balances and transaction histories.
+- **Wallet, Transaction and Block Information**: View detailed wallet balances, transaction histories and block information.
 - **Responsive Design**: A user-friendly interface built with Tailwind CSS, optimized for both desktop and mobile devices.
 - **Dynamic Data Fetching**: Utilizes Web3.js to interact with Ethereum nodes, ensuring up-to-date blockchain information.
 - **Server-Side Rendering**: Leveraging Next.js for fast page loads and SEO-friendly content rendering.
