@@ -1,6 +1,5 @@
 import { ArrowLeftIcon } from '@heroicons/react/20/solid'
 import { useRouter } from 'next/navigation';
-import Web3 from 'web3';
 import Transactions from './transactions';
 
 export default function WalletDetail({ wallet }: { wallet: any}) {

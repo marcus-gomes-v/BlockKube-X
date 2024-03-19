@@ -3,13 +3,11 @@
 
 import BlockDetail from '@/app/components/details/block/block-detail';
 import React, { useEffect, useState } from 'react';
-import Web3 from 'web3';
-const NEXT_PUBLIC_ETH_NODE_URL = process.env.NEXT_PUBLIC_ETH_NODE_URL!;
+
 
 export default function TransactionPage({ params }: { params: { data: string } }) {
   const [block, setBlock] = useState<any>(null);
   const { data } = params; 
-  const web3 = new Web3(NEXT_PUBLIC_ETH_NODE_URL);
 
   useEffect(() => {
     if (!data) return; // Exit if the hash is not yet available
@@ -20,11 +18,6 @@ export default function TransactionPage({ params }: { params: { data: string } }
         return;
       }
       let blockData = await response.json();
-
-      if (!blockData) {
-        blockData = await web3.eth.getBlock(data, true);
-      }
-      console.log('Block Data:', blockData);
       setBlock(blockData);
     };
     fetchBlockData();

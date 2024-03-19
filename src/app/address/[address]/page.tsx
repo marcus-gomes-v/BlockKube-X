@@ -3,29 +3,26 @@
 
 import WalletDetail from '@/app/components/details/wallet/wallet-detail';
 import React, { useEffect, useState } from 'react';
-import Web3 from 'web3';
-const ETH_NODE_URL = process.env.NEXT_PUBLIC_ETH_NODE_URL!;
 
 export default function TransactionPage({ params }: { params: { address: string } }) {
   const [addressDetail, setAddressDetail] = useState<any>(null);
   const { address } = params; 
-  const web3 = new Web3(ETH_NODE_URL);
 
   useEffect(() => {
     if (!address) return; // Exit if the hash is not yet available
     const fetchWalletData = async () => {
       if (typeof address === 'string') { // Ensure hash is a string
-        const walletBalanceWei = await web3.eth.getBalance(address);
-        const walletBalanceEther = await web3.utils.fromWei(walletBalanceWei, 'ether');
+        const balanceRes = await fetch(`/api/address/${address}`);
         const response = await fetch(`/api/transactions/${address}`);
-        if (!response.ok) {
+        if (!response.ok || !balanceRes.ok) {
           console.error('Failed to fetch transactions data');
           return;
         }
+        const balance = await balanceRes.json();
         const transactions = await response.json();
         setAddressDetail({
           address: address,
-          balance: Number(walletBalanceEther),
+          balance: balance.balance,
           transactions
         });
       }

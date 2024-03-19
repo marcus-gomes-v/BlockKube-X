@@ -2,7 +2,6 @@
 "use client";
 
 import React, { useEffect, useState } from 'react';
-import Web3 from 'web3';
 import { Kube } from './kube';
 import { PinContainer } from '../ui/3d-pin';
 
@@ -19,44 +18,17 @@ interface Block {
   transactions: string[]; // Array to store transaction hashes
 }
 
-const NEXT_PUBLIC_ETH_NODE_URL = process.env.NEXT_PUBLIC_ETH_NODE_URL!;
-
 const Blocks: React.FC = () => {
   const [blocks, setBlocks] = useState<Block[]>([]);
 
-  const web3 = new Web3(NEXT_PUBLIC_ETH_NODE_URL);
-
   const fetchBlocks = async () => {
-    const latestBlockNumber = await web3.eth.getBlockNumber();
-    const blocksToFetch: bigint[] = [
-      BigInt(latestBlockNumber),
-      BigInt(latestBlockNumber) - BigInt(1),
-      BigInt(latestBlockNumber) - BigInt(2),
-      BigInt(latestBlockNumber) - BigInt(3),
-      BigInt(latestBlockNumber) - BigInt(4),
-      BigInt(latestBlockNumber) - BigInt(5),
-      BigInt(latestBlockNumber) - BigInt(6),
-      BigInt(latestBlockNumber) - BigInt(7),
-    ];
-    const blocksData: Block[] = await Promise.all(
-      blocksToFetch.map(async (blockNumber) => {
-        const block = await web3.eth.getBlock(blockNumber.toString(), true); // Fetch detailed transactions
-
-        // Check if the block has transactions and process accordingly
-        const transactionHashes = block.transactions && Array.isArray(block.transactions) 
-          ? block.transactions.map(tx => typeof tx === 'string' ? tx : tx.hash) // Extract hashes from transaction objects
-          : []; // Handle blocks without transactions
-
-        return {
-          ...block,
-          number: BigInt(block.number), // Ensure consistency with Block interface
-          timestamp: block.timestamp.toString(), // Convert timestamp to string if necessary
-          transactions: transactionHashes, // Use the processed transaction hashes
-        };
-      })
-    );
-
-    setBlocks(blocksData);
+    const response = await fetch(`/api/blocks`);
+    if (!response.ok) {
+      console.error('Failed to fetch transactions data');
+      return;
+    }
+    let blockData = await response.json();
+    setBlocks(blockData);
   };
 
   // Set up the interval

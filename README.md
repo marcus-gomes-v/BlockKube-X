@@ -36,7 +36,7 @@ Before you begin, ensure you have installed the following on your system:
 3. Set up environment variables:
 
    - Copy the `.env.example` file to `.env`.
-   - Fill in the `NEXT_PUBLIC_ETH_NODE_URL` with your Ethereum node URL.
+   - Fill in the `ETH_NODE_URL` with your Ethereum node URL.
    - Set your `MONGODB_URI` to point to your MongoDB instance.
    - Optionally, set `INDEX_PAST_BLOCKS=true` if you wish to index all past blockchain blocks up to the current block. **Caution**: This process can be resource-intensive and time-consuming, depending on how far back the indexing goes.
 
