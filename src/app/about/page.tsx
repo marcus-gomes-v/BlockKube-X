@@ -60,7 +60,7 @@ export default function Example() {
               </p>
 
               <p className="mt-6">
-                Explore BlockKube X on GitHub: <a href="https://github.com/marcus-gomes-v/BlockKube-X" className="text-blue-500 hover:text-blue-600">BlockKube-X Repository</a> or see it in action here: <a href="https://blockkube-x.vercel.app/" className="text-blue-500 hover:text-blue-600">Live Demo</a>.
+                Explore <strong>Block Kube X</strong> on GitHub: <a href="https://github.com/marcus-gomes-v/BlockKube-X" className="text-blue-500 hover:text-blue-600">Block Kube X Repository</a> or see it in action here: <a href="https://blockkube-x.vercel.app/" className="text-blue-500 hover:text-blue-600">Live Demo</a>.
               </p>
 
               <p className="mt-6">
@@ -68,7 +68,7 @@ export default function Example() {
               </p>
               
               <p className="mt-6">
-                Your contributions can help make BlockKube X even better for everyone in the blockchain community.
+                Your contributions can help make <strong>Block Kube X</strong> even better for everyone in the blockchain community.
               </p>
             </div>
           </div>
