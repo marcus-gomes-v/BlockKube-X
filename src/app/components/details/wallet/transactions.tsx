@@ -30,8 +30,8 @@ export default function Transactions({ wallet, transactions }: { wallet: string,
               <div className="flex-1 truncate px-4 py-2 text-sm">
                 {
                   tx.from.toLowerCase() === wallet.toLowerCase() ? 
-                  `From: ${tx.from}` : 
-                  `To: ${tx.to}`
+                  `To: ${tx.to}` : `From: ${tx.from}`
+                  
                 }
                 <p className="text-gray-500 dark:text-gray-300">{Number(Web3.utils.fromWei(tx.value, 'ether')).toLocaleString()} KUBE</p>
               </div>
